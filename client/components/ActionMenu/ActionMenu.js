@@ -5,10 +5,16 @@ class ActionMenu extends React.Component {
   static displayName = 'ActionMenu'
 
   static propTypes = {
+    app: PropTypes.object,
     actions: PropTypes.object,
+    menu: PropTypes.object,
   }
 
   getChecked(props) {
+    if (!props.app || !props.app.newUsers) {
+      return 0
+    }
+
     return props.app.newUsers.filter((u) => u.$checked).length
   }
 
@@ -32,7 +38,7 @@ class ActionMenu extends React.Component {
 
     return menuConfig.map((menu, i) => {
       const classes = cn('ActionMenu-btn', {
-        '--active': props.menu.open && props.menu.context === menu.action,
+        '--active': props.menu && props.menu.open && props.menu.context === menu.action,
         '--disabled': menu.action === 'Move' && !checked,
       })
 

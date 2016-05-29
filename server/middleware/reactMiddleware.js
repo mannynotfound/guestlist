@@ -39,7 +39,9 @@ export default function reactMiddleware (req, res) {
     const assets = require('../../build/assets.json')
     const store = configureStore()
 
-    if (!req.cookies[cookieName]) res.cookie(cookieName, defaultCookie)
+    if (!req.cookies[cookieName]) {
+      res.cookie(cookieName, defaultCookie)
+    }
 
     return store.dispatch(hydrateInitialStore(req)).then(() => {
       const initialState = JSON.stringify(store.getState())

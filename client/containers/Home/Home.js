@@ -18,8 +18,10 @@ class Home extends React.Component {
       <div className="Home">
         {filteredUsers.length ?
           <Page users={filteredUsers} /> :
-          <div className="Home-get-cta" onClick={actions.toggleMenu.bind(this, 'Get')}>
-            {'No users loaded! Fetch more.'}
+          <div
+            className="Home-get-cta"
+            onClick={actions.toggleMenu.bind(this, 'Get')}>
+            {'No users loaded! Click to fetch more.'}
           </div>}
       </div>
     )

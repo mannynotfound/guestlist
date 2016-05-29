@@ -7,6 +7,9 @@ export default function app(state = {}, action) {
   switch (action.type) {
     case types.FETCH_FIRE_SUCCESS:
       return action.fire
+    case types.GET_USERS_SUCCESS:
+      newState.newUsers = action.users
+      return newState
     case types.TOGGLE_CHECK:
       const user = find(newState.newUsers, (u) => u.id === action.user.id)
       user.$checked = !user.$checked

@@ -11,6 +11,28 @@ export function setClient(client) {
   )
 }
 
+export function checkUsers() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const local = JSON.parse(localStorage.getItem('guestlist'))
+
+    if (Array.isArray(local)) {
+      return (dispatch) => (
+         dispatch({
+          'type': types.GET_USERS_SUCCESS,
+          users: local,
+        })
+      )
+    }
+  }
+
+  return (dispatch) => (
+     dispatch({
+      'type': types.GOT_ERROR,
+      err: null,
+    })
+  )
+}
+
 export function toggleCheck(user) {
   return (dispatch) => (
     dispatch({

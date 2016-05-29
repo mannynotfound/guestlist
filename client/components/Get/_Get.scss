@@ -1,0 +1,49 @@
+.Get {
+  font-size: 20px;
+  text-align: left;
+  height: 100%;
+  @include display(flex);
+  @include align-items(center);
+  @include justify-content(center);
+}
+
+.Get-inner {
+  display: inline-block;
+  margin-top: -100px;
+}
+
+.Get-opt {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eaeaea;
+  &:last-child {
+    border-bottom: none;
+  }
+  label {
+    margin-right: 20px;
+  }
+  input[type="text"] {
+    border: 1px solid #eaeaea;
+  }
+  input[type="file"] {
+    color: transparent;
+  }
+}
+
+.Get-friends-btn {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  background: lime;
+  display: inline-block;
+  margin-top: -10px;
+  position: relative;
+  top: 12.5px;
+  margin-left: 20px;
+}
+
+.Dropzone {
+  border: 1px dashed #eaeaea;
+  display: inline-block;
+  padding: 2px 10px; 
+}

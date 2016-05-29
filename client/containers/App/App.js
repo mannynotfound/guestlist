@@ -33,6 +33,10 @@ export class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.actions.checkUsers()
+  }
+
   render() {
     const {children, client} = this.props
 
@@ -58,6 +62,7 @@ function mapStateToProps(state) {
     'app': state.app,
     'client': state.client,
     'menu': state.menu,
+    'errors': state.errors,
   }
 }
 

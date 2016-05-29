@@ -1,11 +1,11 @@
-import * as types from '../constants/MenuTypes'
-import * as actionTypes from '../constants/ActionTypes'
+import * as types from '../constants/ActionTypes'
 
 export default function menu(state = {}, action) {
   const newState = {...state}
 
   switch (action.type) {
-    case actionTypes.ADD_TO_LIST_SUCCESS:
+    case types.GET_USERS_SUCCESS:
+    case types.ADD_TO_LIST_SUCCESS:
       newState.open = false
       return newState
     case types.TOGGLE_MENU:

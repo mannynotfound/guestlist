@@ -1,13 +1,15 @@
-import {applyMiddleware, createStore} from 'redux'
-import rootReducer from '../reducers'
+import {applyMiddleware, createStore, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
+import rootReducer from '../reducers'
+import storage from '../utils/storage'
+
+const enhancer = compose(
+  applyMiddleware(thunkMiddleware),
+  storage(),
+  typeof window !== 'undefined' && window.devToolsExtension ?
+    window.devToolsExtension() : (nope) => nope
+)
 
 export default function configureStore(initialState) {
-  const create = typeof window !== 'undefined' && window.devToolsExtension
-    ? window.devToolsExtension()(createStore)
-    : createStore
-
-  const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(create)
-
-  return createStoreWithMiddleware(rootReducer, initialState)
+  return createStore(rootReducer, initialState, enhancer)
 }

@@ -2,8 +2,18 @@
   float: left;
   width: 100%;
   height: 100%;
-  p {
-    width: 50%;
-  }
 }
 
+.Home-get-cta {
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  color: #666;
+  font-size: 20px;
+}

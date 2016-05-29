@@ -1,6 +1,7 @@
 import React, {createElement, PropTypes} from 'react'
 import Filters from '../Filters/Filters'
 import Move from '../Move/Move'
+import Get from '../Get/Get'
 
 class Menu extends React.Component {
   static displayName = 'Menu'
@@ -8,7 +9,6 @@ class Menu extends React.Component {
   static propTypes = {
     menu: PropTypes.object,
   }
-
 
   render() {
     const {menu} = this.props
@@ -26,6 +26,7 @@ class Menu extends React.Component {
       Actions,
       AddList,
       Move,
+      Get,
     }
 
     const MenuCpt = createElement(cptMap[menu.context], this.props)
