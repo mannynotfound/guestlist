@@ -1,0 +1,42 @@
+.Stats {
+  display: inline-block;
+  height: 35px;
+  width: 100%;
+  color: #66757f;
+  margin: 0 0 -4px 0;
+  position: absolute;
+  right: 0;
+  vertical-align: bottom; 
+  padding-left: 80px;
+  white-space: nowrap;
+}
+
+.Stat {
+  color: #66757f;
+  height: 35px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 0 solid;
+  display: inline-block;
+  line-height: 1;
+  padding: 0px 6px;
+  cursor: pointer;
+  transition: all .15s ease-in-out; 
+  &:hover {
+    color: #292f33;
+  }
+}
+
+.Stat-label {
+  font-size: 10px;
+  letter-spacing: .02em;
+  text-transform: uppercase; 
+}
+
+.Stat-value {
+  font-size: 16px;
+  padding-top: 3px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+

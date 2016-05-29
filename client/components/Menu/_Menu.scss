@@ -1,0 +1,15 @@
+.Menu {
+  width: 100%;
+  position: absolute;
+  top: $NAV_HEIGHT;
+  left: 0;
+  height: calc(100vh - #{$NAV_HEIGHT});
+  background: rgba(0, 0, 0, .8);
+  color: white;
+}
+
+.Menu-inner {
+  padding: 50px;
+  height: 100%;
+  width: 100%;
+}

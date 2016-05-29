@@ -1,0 +1,4 @@
+server/api/config*
+build
+node_modules
+models
