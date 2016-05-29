@@ -1,6 +1,5 @@
 import express from 'express'
 import reduceUsers from '../../client/utils/reduceUsers'
-import testUsers from '../../models/mannynotfound-friends'
 import * as twitterApi from './twitter'
 
 const router = new express.Router()
@@ -11,8 +10,12 @@ router.get('/addToList/:options', (req, res) => {
   twitterApi.addToList(users, list, (resp) => res.send(resp).end())
 })
 
+router.get('/getUsers/:options', (req, res) => {
+  const options = JSON.parse(req.params.options)
+  twitterApi.getUsers(options, (resp) => res.send(resp).end())
+})
+
 router.get('/getDB', (req, res) => {
-  const newUsers = reduceUsers(testUsers)
 
   if (!lists.length) {
     twitterApi.getLists((allLists) => {
@@ -20,13 +23,11 @@ router.get('/getDB', (req, res) => {
 
       res.send({
         lists,
-        newUsers,
       }).end()
     })
   } else {
     res.send({
       lists,
-      newUsers,
     }).end()
   }
 })

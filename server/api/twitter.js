@@ -1,6 +1,7 @@
 import Twitter from 'twitter'
 import config from './config'
 import {map as asyncMap} from 'async'
+import GetFriends from './get-friends'
 
 const client = new Twitter(config.creds)
 
@@ -64,4 +65,10 @@ export function getListMembers(list, cb) {
       cb(resp.users)
     }
   })
+}
+
+export function getUsers(options, cb) {
+  if (options.type === 'friends') {
+    new GetFriends(client, options.target, cb)
+  }
 }

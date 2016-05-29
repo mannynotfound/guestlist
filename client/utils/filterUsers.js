@@ -1,11 +1,11 @@
 export default function (props) {
-  console.log(props)
   const newProps = {...props}
   const {filtered, lists} = newProps
   let {newUsers} = newProps
 
-  // no filters, just return input
-  if (!filtered || !filtered.length) {
+  if (!newUsers) {
+    return []
+  } else if (!filtered || !filtered.length) {
     return props.newUsers
   }
 
