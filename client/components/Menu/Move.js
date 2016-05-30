@@ -6,29 +6,30 @@ class Move extends React.Component {
   static propTypes = {
     app: PropTypes.object,
     actions: PropTypes.object,
+    client: PropTypes.object,
   }
 
   createMenu(props) {
-    return props.app.lists.map((list, i) => (
+    const {app, client, actions} = props
+
+    return app.lists.map((list, i) => (
       <div
         key={i}
         className="Menu-btn"
-        onClick={props.actions.moveAll.bind(this, props.app, list.slug)}>
+        onClick={actions.moveAll.bind(this, client.cookie, app, list.slug)}>
         {list.slug}
       </div>
     )).concat([
       <div
         key="trash"
         className="Menu-btn --trash"
-        onClick={props.actions.moveAll.bind(this, props.app, 'trash')}>
+        onClick={actions.moveAll.bind(this, client.cookie, app, 'trash')}>
         {'TRASH'}
       </div>
     ])
   }
 
   render() {
-    console.log(this.props)
-
     return (
       <div className="Move">
         {this.createMenu(this.props)}

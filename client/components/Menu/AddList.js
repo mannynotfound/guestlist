@@ -14,6 +14,7 @@ class AddList extends React.Component {
 
   static propTypes = {
     actions: PropTypes.object,
+    client: PropTypes.object,
   }
 
   onInputName(e) {
@@ -34,9 +35,9 @@ class AddList extends React.Component {
 
   render() {
     const {list, desc} = this.state
-    const {actions} = this.props
+    const {actions, client} = this.props
 
-    const submitFn = actions.createList.bind(this, {list, desc})
+    const submitFn = actions.createList.bind(this, client.cookie, {list, desc})
 
     return (
       <div id="AddList" className="Menu-center">

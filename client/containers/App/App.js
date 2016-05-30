@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import cn from 'classnames'
 import {isEqual} from 'lodash'
+import {browserHistory} from 'react-router'
 import Navigation from '../../components/Navigation/Navigation'
 
 export class App extends Component {
@@ -13,6 +14,10 @@ export class App extends Component {
     'app': PropTypes.object.isRequired,
     'client': PropTypes.object.isRequired,
     'children': PropTypes.object.isRequired,
+  }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
   }
 
   static childContextTypes = {
@@ -35,10 +40,17 @@ export class App extends Component {
 
   componentDidMount() {
     this.props.actions.checkUsers()
+    if (!this.props.client.cookie) {
+      browserHistory.push('/login')
+    }
   }
 
   render() {
     const {children, client} = this.props
+
+    if (typeof window !== 'undefined') {
+      console.log(this.props)
+    }
 
     // make children without themselves as props
     const childProps = {...this.props}

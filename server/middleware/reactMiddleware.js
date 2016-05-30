@@ -8,19 +8,19 @@ import {renderToString} from 'react-dom/server'
 import routes from '../../client/routes'
 import MobileDetect from 'mobile-detect'
 
-const defaultCookie = '{"firstTime": true}'
-const cookieName = 'boiler404'
+const cookieName = 'guestlist-twit'
 const contact404 = '@artnotfound'
 
 function hydrateInitialStore (req) {
   const md = new MobileDetect(req.headers['user-agent'])
   const ua = md.mobile() ? 'mobile' : 'desktop'
-  const cookie = JSON.parse((req.cookies[cookieName] || defaultCookie))
+  req.cookies = req.cookies || {}
+  const cookie = req.cookies[cookieName] || null
 
   return (dispatch) => {
     return (
       Promise.all([
-        dispatch(fetchFire()),
+        dispatch(fetchFire(cookie)),
         dispatch(setClient({'cookie': cookie, 'agent': ua}))
       ])
     )
@@ -38,10 +38,6 @@ export default function reactMiddleware (req, res) {
 
     const assets = require('../../build/assets.json')
     const store = configureStore()
-
-    if (!req.cookies[cookieName]) {
-      res.cookie(cookieName, defaultCookie)
-    }
 
     return store.dispatch(hydrateInitialStore(req)).then(() => {
       const initialState = JSON.stringify(store.getState())

@@ -14,6 +14,7 @@ class Get extends React.Component {
 
   static propTypes = {
     actions: PropTypes.object,
+    client: PropTypes.object,
   }
 
   onInput(e) {
@@ -27,10 +28,10 @@ class Get extends React.Component {
   }
 
   render() {
-    const {actions} = this.props
+    const {actions, client} = this.props
     const {friend} = this.state
 
-    const friendsFn = actions.getUsers.bind(this, {
+    const friendsFn = actions.getUsers.bind(this, client.cookie, {
       type: 'friends',
       target: friend,
     })

@@ -8,18 +8,39 @@ const type = upload.single('jsonfile')
 const router = new express.Router()
 let lists = []
 
-router.get('/addToList/:options', (req, res) => {
+function parseBody(req, cb) {
+  let body = ''
+
+  req.on('data', (data) => {
+    body += data
+
+    if (body.length > 1e6) {
+      console.log('TOO MUCH POST DATA')
+      req.connection.destroy()
+    }
+  })
+
+  req.on('end', () => {
+    cb(body)
+  })
+}
+
+router.post('/addToList/:options', (req, res) => {
   const {users, list} = JSON.parse(req.params.options)
-  twitterApi.addToList(users, list, (err, resp) => (
-    res.status(err ? 500 : 200).send(err || resp).end()
-  ))
+  parseBody(req, (cookie) => {
+    twitterApi.addToList(cookie, {users, list}, (err, resp) => (
+      res.status(err ? 500 : 200).send(err || resp).end()
+    ))
+  })
 })
 
-router.get('/createList/:options', (req, res) => {
+router.post('/createList/:options', (req, res) => {
   const options = JSON.parse(req.params.options)
-  twitterApi.createList(options, (err, resp) => (
-    res.status(err ? 500 : 200).send(err || resp).end()
-  ))
+  parseBody(req, (cookie) => {
+    twitterApi.createList(cookie, options, (err, resp) => (
+      res.status(err ? 500 : 200).send(err || resp).end()
+    ))
+  })
 })
 
 router.post('/uploadJSON/', type, (req, res) => {
@@ -32,44 +53,44 @@ router.post('/uploadJSON/', type, (req, res) => {
   })
 })
 
-// experimental not working yet
-router.get('/download/:type/:data', (req, res) => {
-  const data = JSON.parse(req.params.data)
-  const filepath = `./uploads/${new Date().getTime()}.json`
-  require('fs').writeFile(filepath, data, 'utf8', (err) => {
-    if (err) {
-      return res.status(500),send(new Error('couldnt make file'))
+router.get('/login-twitter', (req, res) => {
+  twitterApi.oAuth.getAccessToken(req, res, (error, newToken) => {
+    if (newToken) {
+      res.redirect('/')
+    } else {
+      res.send(JSON.stringify(error)).end()
     }
-
-    return res.download(filepath)
   })
 })
 
-router.get('/getUsers/:options', (req, res) => {
+router.post('/getUsers/:options', (req, res) => {
   const options = JSON.parse(req.params.options)
-  twitterApi.getUsers(options, (err, resp) => {
-    if (err) {
-      return res.status(500).send({err, users: resp}).end()
-    }
+  parseBody(req, (cookie) => {
+    twitterApi.getUsers(cookie, options, (err, resp) => {
+      if (err) {
+        return res.status(500).send({err, users: resp}).end()
+      }
 
-    return res.status(200).send({users: resp}).end()
+      return res.status(200).send({users: resp}).end()
+    })
   })
 })
 
-router.get('/getDB', (req, res) => {
-  if (!lists.length) {
-    twitterApi.getLists((allLists) => {
-      lists = allLists
-
+router.post('/getDB', (req, res) => {
+  parseBody(req, (cookie) => {
+    if (!lists.length) {
+      twitterApi.getLists(cookie, (allLists) => {
+        lists = allLists
+        res.send({
+          lists,
+        }).end()
+      })
+    } else {
       res.send({
         lists,
       }).end()
-    })
-  } else {
-    res.send({
-      lists,
-    }).end()
-  }
+    }
+  })
 })
 
 export default router

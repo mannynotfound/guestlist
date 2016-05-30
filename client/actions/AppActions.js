@@ -73,7 +73,7 @@ export function addToListSuccess(newState, actionLog) {
   }
 }
 
-export function moveAll(state, list) {
+export function moveAll(cookie, state, list) {
   const newState = {...state}
   const API = process.env.API || 'http://localhost:3000/api'
   const targetList = find(newState.lists, (l) => l.slug === list)
@@ -107,22 +107,28 @@ export function moveAll(state, list) {
 
   // make api request and then report on success
   return (dispatch) => (
-    fetch(`${API}/addToList/${JSON.stringify({list, users})}`)
-      .then(() => dispatch(addToListSuccess(newState, {
-        list,
-        amount: users.length,
-      })))
-      .catch((error) => console.log(error))
+    fetch(`${API}/addToList/${JSON.stringify({list, users})}`, {
+      method: 'POST',
+      body: cookie,
+    })
+    .then(() => dispatch(addToListSuccess(newState, {
+      list,
+      amount: users.length,
+    })))
+    .catch((error) => console.log(error))
   )
 }
 
-export function fetchFire() {
+export function fetchFire(cookie) {
   const API = process.env.API || 'http://localhost:3000/api'
 
   return (dispatch) => (
-    fetch(`${API}/getDB`)
-      .then((response) => response.json())
-      .then((json) => dispatch(fetchFireSuccess(json)))
-      .catch((error) => console.log(error))
+    fetch(`${API}/getDB/`, {
+      method: 'POST',
+      body: cookie,
+    })
+    .then((response) => response.json())
+    .then((json) => dispatch(fetchFireSuccess(json)))
+    .catch((error) => console.log(error))
   )
 }

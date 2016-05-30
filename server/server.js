@@ -15,8 +15,8 @@ const DEFAULT_PORT = 3000
 const server = express()
 
 server.use(cors())
-server.use(bodyParser())
-server.use(cookieParser())
+server.use(bodyParser.json())
+server.use(cookieParser('sess'))
 server.set('env', DEBUG ? 'development' : 'production')
 server.set('port', process.env.PORT || DEFAULT_PORT)
 server.set('views', path.resolve(__dirname, 'views'))

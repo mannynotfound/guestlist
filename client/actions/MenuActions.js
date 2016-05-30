@@ -42,7 +42,7 @@ export function addToListSuccess(newState, actionLog) {
   }
 }
 
-export function moveAll(state, list) {
+export function moveAll(cookie, state, list) {
   const newState = {...state}
   const API = process.env.API || 'http://localhost:3000/api'
   const targetList = find(newState.lists, (l) => l.slug === list)
@@ -76,52 +76,61 @@ export function moveAll(state, list) {
 
   // make api request and then report on success
   return (dispatch) => (
-    fetch(`${API}/addToList/${JSON.stringify({list, users})}`)
-      .then((resp) => {
-        if (resp.status === 500) {
-          dispatch(gotError(resp.json().err))
-        }
+    fetch(`${API}/addToList/${JSON.stringify({list, users})}`, {
+      method: 'POST',
+      body: cookie,
+    })
+    .then((resp) => {
+      if (resp.status === 500) {
+        dispatch(gotError(resp.json().err))
+      }
 
-        return dispatch(addToListSuccess(newState, {
-          list,
-          amount: users.length,
-        }))
-      })
-      .catch((error) => console.log(error))
+      return dispatch(addToListSuccess(newState, {
+        list,
+        amount: users.length,
+      }))
+    })
+    .catch((error) => console.log(error))
   )
 }
 
-export function createList(options) {
+export function createList(cookie, options) {
   const API = process.env.API || 'http://localhost:3000/api'
 
   return (dispatch) => (
-    fetch(`${API}/createList/${JSON.stringify(options)}`)
-      .then((resp) => {
-        if (resp.status === 500) {
-          dispatch(gotError(resp.json().err))
-        }
+    fetch(`${API}/createList/${JSON.stringify(options)}`, {
+      method: 'POST',
+      body: cookie,
+    })
+    .then((resp) => {
+      if (resp.status === 500) {
+        dispatch(gotError(resp.json().err))
+      }
 
-        return resp.json()
-      })
-      .then(() => dispatch(createListSuccess(options)))
-      .catch((error) => dispatch(gotError(error)))
+      return resp.json()
+    })
+    .then(() => dispatch(createListSuccess(options)))
+    .catch((error) => dispatch(gotError(error)))
   )
 }
 
-export function getUsers(options) {
+export function getUsers(cookie, options) {
   const API = process.env.API || 'http://localhost:3000/api'
 
   return (dispatch) => (
-    fetch(`${API}/getUsers/${JSON.stringify(options)}`)
-      .then((resp) => {
-        if (resp.status === 500) {
-          dispatch(gotError(resp.json().err))
-        }
+    fetch(`${API}/getUsers/${JSON.stringify(options)}`, {
+      method: 'POST',
+      body: cookie,
+    })
+    .then((resp) => {
+      if (resp.status === 500) {
+        dispatch(gotError(resp.json().err))
+      }
 
-        return resp.json()
-      })
-      .then((json) => dispatch(getUsersSuccess(reduceUsers(json.users))))
-      .catch((error) => dispatch(gotError(error)))
+      return resp.json()
+    })
+    .then((json) => dispatch(getUsersSuccess(reduceUsers(json.users))))
+    .catch((error) => dispatch(gotError(error)))
   )
 }
 

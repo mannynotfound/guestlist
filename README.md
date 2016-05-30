@@ -6,11 +6,29 @@
 
 Web app creation tool for easily creating human curated Twitter lists to be used as training sets.
 
+# Features
+
+- [x] Easily select many users and perform batch actions
+- [x] Stores your client info in a serialized cookie for easy & safe usage
+- [x] Saves loaded user lists into local storage 
+- [x] Create and push to lists from within app
+- [x] Import the friends/followers of other users into your user pool
+- [x] Filter by unlisted, selected, or by list memberships
+
 # Usage
 
 ```bash
 $ npm install
 ```
+
+### Environment Variables
+
+Variable | Description | Default
+:------- | :---------- | :------
+consumer_key | Twitter app consumer key | null
+consumer_secret | Twitter app consumer key secret | null
+callback_url | url for handling oAuth callback | http://localhost
+API | url for handling API requests  | http://localhost:3000/api
 
 Start development server:
 
@@ -32,12 +50,14 @@ $ git push heroku master
 
 # TODO:
 
-* Set up Auth flow, currently pulling account from config file
+* ~~Set up Auth flow, currently pulling account from config file~~
 * ~~Add user fetching tools, currently static list of users~~
 * ~~Caching fetched users in local storage~~
 * ~~Ability to create list from app~~
 * ~~Convenient actions in the 'Actions' menu~~
 * Export lists to various formats for data processing
+* Add profile screen w/ login/logout buttons (currently have to kill cookie)
+* Add ability to concatenate user searches (current only replaces)
 
 # Tech Stack
 

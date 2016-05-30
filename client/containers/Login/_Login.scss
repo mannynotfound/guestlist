@@ -1,0 +1,15 @@
+.Login {
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  min-height: calc(100vh - #{$NAV_HEIGHT});
+  min-width: 100vw;
+}
+
+.Login-btn {
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: -100px;
+  font-weight: 600;
+  color: $twitterColor;
+}
