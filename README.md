@@ -33,10 +33,10 @@ $ git push heroku master
 # TODO:
 
 * Set up Auth flow, currently pulling account from config file
-* ~Add user fetching tools, currently static list of users~
-* ~Caching fetched users in local storage~
-* ~Ability to create list from app~
-* ~Convenient actions in the 'Actions' menu~
+* ~~Add user fetching tools, currently static list of users~~
+* ~~Caching fetched users in local storage~~
+* ~~Ability to create list from app~~
+* ~~Convenient actions in the 'Actions' menu~~
 * Export lists to various formats for data processing
 
 # Tech Stack
