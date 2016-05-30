@@ -7,6 +7,20 @@ export default function app(state = {}, action) {
   switch (action.type) {
     case types.FETCH_FIRE_SUCCESS:
       return action.fire
+    case types.CREATE_LIST_SUCCESS:
+      if (!newState.lists) {
+        newState.lists = []
+      }
+
+      newState.lists.push({
+        description: action.options.desc,
+        mode: 'private',
+        name: action.options.list,
+        slug: action.options.list,
+        members: [],
+      })
+
+      return newState
     case types.GET_USERS_SUCCESS:
       newState.newUsers = action.users
       return newState

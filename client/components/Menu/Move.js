@@ -12,14 +12,14 @@ class Move extends React.Component {
     return props.app.lists.map((list, i) => (
       <div
         key={i}
-        className="Move-option"
+        className="Menu-btn"
         onClick={props.actions.moveAll.bind(this, props.app, list.slug)}>
         {list.slug}
       </div>
     )).concat([
       <div
         key="trash"
-        className="Move-option --trash"
+        className="Menu-btn --trash"
         onClick={props.actions.moveAll.bind(this, props.app, 'trash')}>
         {'TRASH'}
       </div>

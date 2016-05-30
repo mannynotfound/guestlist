@@ -1,25 +1,24 @@
 import React, {createElement, PropTypes} from 'react'
-import Filters from '../Filters/Filters'
-import Move from '../Move/Move'
-import Get from '../Get/Get'
+import Filters from './Filters'
+import Move from './Move'
+import Get from './Get'
+import Actions from './Actions'
+import AddList from './AddList'
 
 class Menu extends React.Component {
   static displayName = 'Menu'
 
   static propTypes = {
     menu: PropTypes.object,
+    actions: PropTypes.object,
   }
 
   render() {
-    const {menu} = this.props
+    const {menu, actions} = this.props
 
     if (!menu.open) {
       return null
     }
-
-    // TODO: make these real
-    const Actions = Filters
-    const AddList = Filters
 
     const cptMap = {
       Filters,
@@ -33,6 +32,9 @@ class Menu extends React.Component {
 
     return (
       <div className="Menu">
+        <div
+          className="Menu-close"
+          onClick={actions.toggleMenu.bind(this, menu.context)} />
         <div className="Menu-inner">
           {MenuCpt}
         </div>

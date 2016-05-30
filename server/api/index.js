@@ -10,7 +10,16 @@ let lists = []
 
 router.get('/addToList/:options', (req, res) => {
   const {users, list} = JSON.parse(req.params.options)
-  twitterApi.addToList(users, list, (resp) => res.send(resp).end())
+  twitterApi.addToList(users, list, (err, resp) => (
+    res.status(err ? 500 : 200).send(err || resp).end()
+  ))
+})
+
+router.get('/createList/:options', (req, res) => {
+  const options = JSON.parse(req.params.options)
+  twitterApi.createList(options, (err, resp) => (
+    res.status(err ? 500 : 200).send(err || resp).end()
+  ))
 })
 
 router.post('/uploadJSON/', type, (req, res) => {
@@ -20,6 +29,19 @@ router.post('/uploadJSON/', type, (req, res) => {
     } else {
       res.status(200).send({users: JSON.parse(data)}).end()
     }
+  })
+})
+
+// experimental not working yet
+router.get('/download/:type/:data', (req, res) => {
+  const data = JSON.parse(req.params.data)
+  const filepath = `./uploads/${new Date().getTime()}.json`
+  require('fs').writeFile(filepath, data, 'utf8', (err) => {
+    if (err) {
+      return res.status(500),send(new Error('couldnt make file'))
+    }
+
+    return res.download(filepath)
   })
 })
 

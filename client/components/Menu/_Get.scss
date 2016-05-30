@@ -19,27 +19,6 @@
   &:last-child {
     border-bottom: none;
   }
-  label {
-    margin-right: 20px;
-  }
-  input[type="text"] {
-    border: 1px solid #eaeaea;
-  }
-  input[type="file"] {
-    color: transparent;
-  }
-}
-
-.Get-friends-btn {
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  background: lime;
-  display: inline-block;
-  margin-top: -10px;
-  position: relative;
-  top: 12.5px;
-  margin-left: 20px;
 }
 
 .Dropzone {

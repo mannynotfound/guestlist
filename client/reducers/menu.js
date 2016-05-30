@@ -5,6 +5,7 @@ export default function menu(state = {}, action) {
 
   switch (action.type) {
     case types.GET_USERS_SUCCESS:
+    case types.CREATE_LIST_SUCCESS:
     case types.ADD_TO_LIST_SUCCESS:
       newState.open = false
       return newState

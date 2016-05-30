@@ -8,17 +8,21 @@ const client = new Twitter(config.creds)
 export function addToList(users, list, cb) {
   const opts = {
     slug: list,
-    slug: list,
     owner_screen_name: config.username,
     user_id: users.join(',')
   }
-  client.post('lists/members/create_all', opts, (err, resp) => {
-    if (err) {
-      console.log(err)
-    } else {
-      cb()
-    }
-  })
+  client.post('lists/members/create_all', opts, cb)
+}
+
+export function createList({list, desc}, cb) {
+  console.log('CREATING LIST TWITTER!')
+  const opts = {
+    name: list,
+    description: desc,
+    mode: 'private',
+  }
+
+  client.post('lists/create', opts, cb)
 }
 
 export function getLists(cb) {

@@ -32,6 +32,7 @@ class Filters extends React.Component {
         key={i}>
         <input
           type="checkbox"
+          onChange={() => ({})}
           className="--show-bg"
           checked={(app.filtered && app.filtered.indexOf(f) > - 1) || false} />
         <label>{f}</label>

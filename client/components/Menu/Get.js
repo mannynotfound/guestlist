@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import {findDOMNode} from 'react-dom'
 import Dropzone from 'react-dropzone'
 
 class Get extends React.Component {
@@ -21,6 +22,10 @@ class Get extends React.Component {
     })
   }
 
+  componentDidMount() {
+    findDOMNode(this.refs.friends).focus()
+  }
+
   render() {
     const {actions} = this.props
     const {friend} = this.state
@@ -33,20 +38,22 @@ class Get extends React.Component {
     const dropFn = actions.uploadJSON.bind(this)
 
     return (
-      <div className="Get">
+      <div id="Get" className="Menu-center">
         <div className="Get-inner">
           <div className="Get-opt">
-            <label>Get Friends</label>
+            <label className="Menu-label">Get Friends</label>
             <input
+              ref="friends"
+              className="Menu-input"
               onChange={this.onInput.bind(this)}
               type="text"
               value={friend}/>
             <span
-              className="Get-friends-btn"
+              className="Menu-submit"
               onClick={friendsFn}/>
           </div>
           <div className="Get-opt">
-            <label>Load JSON</label>
+            <label className="Menu-label">Load JSON</label>
             <Dropzone
               name="jsonfile"
               className="Dropzone"
