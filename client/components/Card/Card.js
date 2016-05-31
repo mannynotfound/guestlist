@@ -61,9 +61,9 @@ class Card extends React.Component {
             onMouseLeave={this.onHoverOut.bind(this)}
             {... this.props} />
           <div className="Card-content">
-            <a className="Card-profile-link" href={profileUrl}>
+            <span className="Card-profile-link">
               <img className="Card-profile-img" src={user.profile_image_url} />
-            </a>
+            </span>
             <Stats {... this.props} />
             <div className="Card-user-fields">
               <div className="Card-profile-name">

@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import {sortBy} from 'lodash'
 
 class Move extends React.Component {
   static displayName = 'Move'
@@ -12,7 +13,7 @@ class Move extends React.Component {
   createMenu(props) {
     const {app, client, actions} = props
 
-    return app.lists.map((list, i) => (
+    return sortBy(app.lists, (l) => l.slug).map((list, i) => (
       <div
         key={i}
         className="Menu-btn"
