@@ -97,4 +97,3 @@ $ git push heroku master
 ├── .eslintrc                 # ESLint configuration
 └── webpack.config.babel.js   # Webpack configuration
 ```
-
